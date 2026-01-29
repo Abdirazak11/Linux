@@ -1,78 +1,123 @@
-User Management in Linux
-Introduction to User Management in Linux
-Linux is a multi-user operating system, meaning multiple users can operate on a system simultaneously. Proper user management ensures security, controlled access, and system integrity.
+<h2>User Management in Linux</h2>
 
-Key files involved in user management:
+<h3>Introduction to User Management in Linux</h3>
+<p>
+Linux is a multi-user operating system, meaning multiple users can operate on a system
+simultaneously. Proper user management ensures security, controlled access, and overall
+system integrity.
+</p>
 
-/etc/passwd – Stores user account details.
-/etc/shadow – Stores encrypted user passwords.
-/etc/group – Stores group information.
-/etc/gshadow – Stores secure group details.
-Creating Users in Linux
-To create a new user in Linux, use:
+<h3>Key Files Involved in User Management</h3>
+<ul>
+  <li><code>/etc/passwd</code> – Stores user account details</li>
+  <li><code>/etc/shadow</code> – Stores encrypted user passwords</li>
+  <li><code>/etc/group</code> – Stores group information</li>
+  <li><code>/etc/gshadow</code> – Stores secure group details</li>
+</ul>
 
-useradd Command (For most Linux distributions)
-useradd username
-This creates a user without a home directory.
+<h3>Creating Users in Linux</h3>
 
-To create a user with a home directory:
+<h4>useradd Command (Most Linux Distributions)</h4>
 
-useradd -m username
-To specify a shell:
+<p>Create a user without a home directory:</p>
+<pre><code>useradd username
+</code></pre>
 
-useradd -s /bin/bash username
-adduser Command (For Debian-based systems)
-adduser username
-This is an interactive command that asks for a password and additional details.
+<p>Create a user with a home directory:</p>
+<pre><code>useradd -m username
+</code></pre>
 
-Managing User Passwords
-To set or change a user’s password:
+<p>Specify a shell for the user:</p>
+<pre><code>useradd -s /bin/bash username
+</code></pre>
 
-passwd username
-Enforcing Password Policies
-Password expiration: Set password expiry days
-chage -M 90 username
-Lock a user account
-passwd -l username
-Unlock a user account
-passwd -u username
-Modifying Users
-Modify an existing user with usermod:
+<h4>adduser Command (Debian-Based Systems)</h4>
+<p>
+The <code>adduser</code> command is interactive and prompts for a password and user details.
+</p>
+<pre><code>adduser username
+</code></pre>
 
-Change the username:
-usermod -l new_username old_username
-Change the home directory:
-usermod -d /new/home/directory -m username
-Change the default shell:
-usermod -s /bin/zsh username
-Deleting Users
-To remove a user but keep their home directory:
+<h3>Managing User Passwords</h3>
 
-userdel username
-To remove a user and their home directory:
+<p>Set or change a user’s password:</p>
+<pre><code>passwd username
+</code></pre>
 
-userdel -r username
-Working with Groups
-Creating Groups
-groupadd groupname
-Adding Users to Groups
-usermod -aG groupname username
-Viewing Group Memberships
-groups username
-Changing Primary Group
-usermod -g new_primary_group username
-Sudo Access and Privilege Escalation
-Adding a User to Sudo Group
-On Debian-based systems:
+<h4>Enforcing Password Policies</h4>
 
-usermod -aG sudo username
-On RHEL-based systems:
+<p>Set password expiration (e.g., 90 days):</p>
+<pre><code>chage -M 90 username
+</code></pre>
 
-usermod -aG wheel username
-Granting Specific Commands with Sudo
-Edit the sudoers file:
+<p>Lock a user account:</p>
+<pre><code>passwd -l username
+</code></pre>
 
-visudo
-Then add:
+<p>Unlock a user account:</p>
+<pre><code>passwd -u username
+</code></pre>
 
-username ALL=(ALL) NOPASSWD: /path/to/command
+<h3>Modifying Users</h3>
+
+<p>Change the username:</p>
+<pre><code>usermod -l new_username old_username
+</code></pre>
+
+<p>Change the home directory:</p>
+<pre><code>usermod -d /new/home/directory -m username
+</code></pre>
+
+<p>Change the default shell:</p>
+<pre><code>usermod -s /bin/zsh username
+</code></pre>
+
+<h3>Deleting Users</h3>
+
+<p>Delete a user but keep the home directory:</p>
+<pre><code>userdel username
+</code></pre>
+
+<p>Delete a user and their home directory:</p>
+<pre><code>userdel -r username
+</code></pre>
+
+<h3>Working with Groups</h3>
+
+<h4>Creating Groups</h4>
+<pre><code>groupadd groupname
+</code></pre>
+
+<h4>Adding Users to Groups</h4>
+<pre><code>usermod -aG groupname username
+</code></pre>
+
+<h4>Viewing Group Memberships</h4>
+<pre><code>groups username
+</code></pre>
+
+<h4>Changing Primary Group</h4>
+<pre><code>usermod -g new_primary_group username
+</code></pre>
+
+<h3>Sudo Access and Privilege Escalation</h3>
+
+<h4>Adding a User to the Sudo Group</h4>
+
+<p>Debian-based systems:</p>
+<pre><code>usermod -aG sudo username
+</code></pre>
+
+<p>RHEL-based systems:</p>
+<pre><code>usermod -aG wheel username
+</code></pre>
+
+<h4>Granting Specific Commands with Sudo</h4>
+
+<p>Edit the sudoers file safely:</p>
+<pre><code>visudo
+</code></pre>
+
+<p>Add the following entry:</p>
+<pre><code>username ALL=(ALL) NOPASSWD: /path/to/command
+</code></pre>
